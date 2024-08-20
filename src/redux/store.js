@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import filtersReducer from "./filter/filter.js";
 import {
   persistStore,
   persistReducer,
@@ -10,8 +11,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { chatsReducer } from "./chats/slice";
-import { authReducer } from "./chats/slice";
+import chatsReducer from "./chats/slice";
+import authReducer from "./chats/slice";
 
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
@@ -24,6 +25,7 @@ export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     chats: chatsReducer,
+    filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
