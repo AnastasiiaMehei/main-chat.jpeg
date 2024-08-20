@@ -4,11 +4,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 axios.defaults.baseURL = "";
 
 // Utility to add JWT
-const setAuthHeader = (token) => {
+export const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 // Utility to remove JWT
-const clearAuthHeader = () => {
+export const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
 };
 // /register

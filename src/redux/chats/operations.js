@@ -3,7 +3,7 @@ import axios from "axios";
 import { setAuthHeader } from "../auth/operations";
 
 // GET @ /chats
-export const fetchChat = createAsyncThunk(
+export const fetchChats = createAsyncThunk(
   "chats/fetchAll",
   async (_, thunkAPI) => {
     try {
