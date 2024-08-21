@@ -5,6 +5,9 @@
   flex-direction: column;
   align-items: center; */
 }
+.chats {
+  color: aqua;
+}
 
 @media screen and (max-width: 374.98px) {
   .container {

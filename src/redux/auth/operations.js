@@ -73,3 +73,30 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+// google+facebook
+
+export const logInWithGoogle = createAsyncThunk(
+  "auth/logInWithGoogle",
+  async (token, thunkAPI) => {
+    try {
+      const res = await axios.post("/auth/google", { token });
+      setAuthHeader(res.data.token);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logInWithFacebook = createAsyncThunk(
+  "auth/logInWithFacebook",
+  async (token, thunkAPI) => {
+    try {
+      const res = await axios.post("/auth/facebook", { token });
+      setAuthHeader(res.data.token);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

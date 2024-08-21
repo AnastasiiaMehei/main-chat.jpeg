@@ -1,9 +1,5 @@
 .div {
-  display: flex;
-
-  align-items: center;
-  color: #8a8ab7;
-  flex-direction: column;
+  width: 450;
 }
 .paragraph {
   font-size: 25px;

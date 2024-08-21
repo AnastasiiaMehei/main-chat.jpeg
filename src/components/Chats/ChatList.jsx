@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Chat from "../Chat/Chat";
 import { selectFilteredChats } from "../../redux/filter/filter";
 
-function Chats() {
+function ChatList() {
   const chats = useSelector(selectFilteredChats);
 
   return (
@@ -20,4 +20,4 @@ function Chats() {
     </>
   );
 }
-export default Chats;
+export default ChatList;

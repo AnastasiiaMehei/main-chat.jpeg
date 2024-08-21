@@ -5,6 +5,7 @@ function Layout({ children }) {
     <div className={css.container}>
       <AppBar />
       {children}
+      <p className={css.chats}>Chats</p>
     </div>
   );
 }
