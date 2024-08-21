@@ -4,9 +4,9 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import { fetchChats } from "../../redux/chats/operations";
 import { selectLoading } from "../../redux/chats/selectors";
 import ChatEditor from "../../components/ChatEditor/ChatEditor";
-import ChatList from "../../components/ChatList/ChatList";
 import Loader from "../../components/Loader/Loader";
-// це ContactPage
+// import Chats from "../../components/Chats/Chats";
+// import ChatList from "../../components/";
 function UserPage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
@@ -20,8 +20,9 @@ function UserPage() {
       <PageTitle>Your chats</PageTitle>
       <ChatEditor />
       <div>{isLoading && <Loader />}</div>
-      <ChatList />
+      <Chats />
     </>
   );
 }
+
 export default UserPage;

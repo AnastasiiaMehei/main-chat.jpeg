@@ -8,8 +8,7 @@ function HomePage() {
       <PageTitle>User Chat</PageTitle>
       <GiNotebook size={55} />
       <p className={css.paragraph}>
-        Welcome to the User Chat! <br /> Manage your ChatList easily and
-        securely.
+        Welcome to the User Chat! <br /> Manage your Chats easily and securely.
       </p>
     </div>
   );

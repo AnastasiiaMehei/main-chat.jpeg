@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addChat } from "../../redux/contacts/operations";
 import { selectToken } from "../../redux/auth/selectors";
 import { Toaster, toast } from "react-hot-toast";
 import css from "./ChatEditor.module.css";
+import { addChat } from "../../redux/chats/operations";
 
-export default function ContactEditor() {
+export default function ChatEditor() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
 
@@ -15,7 +15,7 @@ export default function ContactEditor() {
     console.log("Submitting chat:", values);
     if (name) {
       if (token) {
-        dispatch(addContact({ name }))
+        dispatch(addChat({ name }))
           .then(() => {
             toast.success("Chat added successfully");
             actions.resetForm();
@@ -86,7 +86,7 @@ export default function ContactEditor() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Add contact
+                    Add chat
                   </button>
                 </Form>
               )}
