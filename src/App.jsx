@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 
 import "./App.css";
-import { AppBar } from "./Registration/AppBar";
+import { AppBar } from "./AppBar/AppBar";
 
 function App() {
   return (

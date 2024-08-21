@@ -7,11 +7,14 @@ import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../redux/auth/selectors";
 import { UserMenu } from "../UserMenu/UserMenu";
 import { AuthNav } from "../AuthNav/AuthNav";
+import SearchBox from "../../components/SearchBox/SearchBox";
+
 // import { LoginForm } from "../LoginForm/LoginForm";
 
 export function AppBar() {
   const { isLoggedIn } = useSelector(selectIsLoggedIn);
-
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <header>
       <div className={styles.container}>
@@ -26,14 +29,15 @@ export function AppBar() {
           </ul>
           {isLoggedIn ? <UserMenu /> : <AuthNav />}
         </div>
-        <form className={styles.form} action="">
-          <SlMagnifier />
+        {/* <form className={styles.form} action="">
           <input
             className={styles.input}
             type="text"
             placeholder="Search or start new chat"
           />
-        </form>
+        </form> */}
+        <SlMagnifier />
+        <SearchBox />
       </div>
     </header>
   );
