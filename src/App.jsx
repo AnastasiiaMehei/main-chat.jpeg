@@ -1,15 +1,54 @@
-// import { useState } from 'react'
+import { lazy, Suspense, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsRefreshing } from "./redux/auth/selectors";
+import { refreshUser } from "./redux/auth/operations";
+import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute"; // Default import
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import Loader from "./components/Loader/Loader";
+import Layout from "./components/Layout/Layout"; // Corrected import path
 
-import "./App.css";
-import { AppBar } from "./AppBar/AppBar";
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
+const UserPage = lazy(() => import("./pages/UserPage/UserPage"));
 
-function App() {
-  return (
-    <>
-      <p>Main page.jpeg</p>
-      <AppBar />
-    </>
+export default function App() {
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+  return isRefreshing ? (
+    <Loader />
+  ) : (
+    <Layout>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/chats"
+                component={<RegisterPage />}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/chats" component={<LoginPage />} />
+            }
+          />
+          <Route
+            path="/chats"
+            element={
+              <PrivateRoute redirectTo="/login" component={<UserPage />} />
+            }
+          />
+        </Routes>
+      </Suspense>
+    </Layout>
   );
 }
-
-export default App;
