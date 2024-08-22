@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-axios.defaults.baseURL = "";
+axios.defaults.baseURL = "https://chat-with-backend.onrender.com/";
 
 // Utility to add JWT
 export const setAuthHeader = (token) => {
@@ -17,7 +17,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/users/signup", credentials);
+      const res = await axios.post("auth/register", credentials);
       // After successful registration, add the token to the HTTP header
       setAuthHeader(res.data.token);
       return res.data;
@@ -31,7 +31,7 @@ export const logIn = createAsyncThunk(
   "auth/login",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/users/login", credentials);
+      const res = await axios.post("auth/login", credentials);
       // After successful login, add the token to the HTTP header
       setAuthHeader(res.data.token);
       return res.data;
@@ -43,7 +43,7 @@ export const logIn = createAsyncThunk(
 // /logout
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await axios.post("/users/logout");
+    await axios.post("auth/logout");
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();
   } catch (error) {
@@ -66,7 +66,7 @@ export const refreshUser = createAsyncThunk(
     try {
       // If there is a token, add it to the HTTP header and perform the request
       setAuthHeader(persistedToken);
-      const res = await axios.get("/users/me");
+      const res = await axios.get("auth/refresh");
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -75,28 +75,28 @@ export const refreshUser = createAsyncThunk(
 );
 // google+facebook
 
-export const logInWithGoogle = createAsyncThunk(
-  "auth/logInWithGoogle",
-  async (token, thunkAPI) => {
-    try {
-      const res = await axios.post("/auth/google", { token });
-      setAuthHeader(res.data.token);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+// export const logInWithGoogle = createAsyncThunk(
+//   "auth/logInWithGoogle",
+//   async (token, thunkAPI) => {
+//     try {
+//       const res = await axios.post("/auth/google", { token });
+//       setAuthHeader(res.data.token);
+//       return res.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
 
-export const logInWithFacebook = createAsyncThunk(
-  "auth/logInWithFacebook",
-  async (token, thunkAPI) => {
-    try {
-      const res = await axios.post("/auth/facebook", { token });
-      setAuthHeader(res.data.token);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+// export const logInWithFacebook = createAsyncThunk(
+//   "auth/logInWithFacebook",
+//   async (token, thunkAPI) => {
+//     try {
+//       const res = await axios.post("/auth/facebook", { token });
+//       setAuthHeader(res.data.token);
+//       return res.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
