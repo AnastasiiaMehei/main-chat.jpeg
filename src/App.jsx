@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsRefreshing } from "./redux/auth/selectors";
 import { refreshUser } from "./redux/auth/operations";
@@ -17,9 +17,18 @@ const UserPage = lazy(() => import("./pages/UserPage/UserPage"));
 export default function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isRefreshing) {
+      navigate("/chats");
+    }
+  }, [isRefreshing, navigate]);
+
   return isRefreshing ? (
     <Loader />
   ) : (

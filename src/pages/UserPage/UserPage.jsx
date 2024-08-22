@@ -1,8 +1,8 @@
-// src/pages/UserPage/UserPage.jsx
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChats } from "../../redux/chats/operations";
-import { selectLoading } from "../../redux/chats/selectors";
+import { selectLoading, selectChats } from "../../redux/chats/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import ChatEditor from "../../components/ChatEditor/ChatEditor";
 import Loader from "../../components/Loader/Loader";
 import ChatList from "../../components/ChatList/ChatList";
@@ -13,16 +13,25 @@ import css from "./UserPage.module.css";
 function UserPage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
+  const chats = useSelector(selectChats);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const [selectedChat, setSelectedChat] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isCreatingChat, setIsCreatingChat] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchChats());
-  }, [dispatch]);
+    if (isLoggedIn) {
+      dispatch(fetchChats());
+    }
+  }, [dispatch, isLoggedIn]);
 
   const handleSelectChat = (chat) => {
     setSelectedChat(chat);
     setIsChatOpen(true);
+  };
+
+  const handleCreateChat = () => {
+    setIsCreatingChat(true);
   };
 
   return (
@@ -30,15 +39,29 @@ function UserPage() {
       <div className={css.container}>
         <div className={css.chatList}>
           {isLoading && <Loader />}
-          <ChatList onSelectChat={handleSelectChat} />
+          {isLoggedIn && chats.length > 0 ? (
+            <ChatList
+              onSelectChat={handleSelectChat}
+              isAuthenticated={isLoggedIn}
+            />
+          ) : (
+            <div>
+              <p>No chats available. Create a new chat.</p>
+              <button onClick={handleCreateChat}>Create Chat</button>
+            </div>
+          )}
         </div>
         <div className={css.chatEditor}>
-          <UserChat
-            isOpen={isChatOpen}
-            onRequestClose={() => setIsChatOpen(false)}
-            selectedChat={selectedChat}
-            user={selectedChat}
-          />
+          {isCreatingChat ? (
+            <ChatEditor />
+          ) : (
+            <UserChat
+              isOpen={isChatOpen}
+              onRequestClose={() => setIsChatOpen(false)}
+              selectedChat={selectedChat}
+              user={selectedChat}
+            />
+          )}
         </div>
       </div>
     </Layout>

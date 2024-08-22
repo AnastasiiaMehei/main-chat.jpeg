@@ -34,10 +34,6 @@ export default function ChatEditor() {
       .min(3, "Too Short")
       .max(50, "Too Long")
       .required("Required"),
-    // phone: Yup.string()
-    //   .min(6, "Too Short")
-    //   .max(50, "Too Long")
-    //   .required("Required"),
   });
 
   return (
@@ -49,7 +45,6 @@ export default function ChatEditor() {
             <Formik
               initialValues={{
                 name: "",
-                // phone: "",
               }}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
@@ -69,18 +64,6 @@ export default function ChatEditor() {
                       component="span"
                     />
                   </div>
-                  {/* <div className={css.inputbox}>
-                    <Field
-                      className={css.field}
-                      name="phone"
-                      placeholder="Phone"
-                    />
-                    <ErrorMessage
-                      className={css.span}
-                      name="phone"
-                      component="span"
-                    />
-                  </div> */}
                   <button
                     className={css.btn}
                     type="submit"

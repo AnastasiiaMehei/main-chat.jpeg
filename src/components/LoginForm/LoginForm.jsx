@@ -2,12 +2,14 @@ import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/auth/operations";
 import { IoClose } from "react-icons/io5";
 import { toast } from "react-hot-toast"; // Імпорт toast
+import { useNavigate } from "react-router-dom"; // Імпорт useNavigate
 
 import styles from "./LoginForm.module.css";
 
 export function LoginForm({ onClose }) {
   // Додано onClose
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Використання useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ export function LoginForm({ onClose }) {
       .then(() => {
         toast.success("Login successful!"); // Сповіщення про успішний логін
         onClose(); // Закриття модального вікна
+        navigate("/chats"); // Перенаправлення на сторінку чатів
       })
       .catch(() => {
         toast.error("Login failed."); // Сповіщення про невдалий логін

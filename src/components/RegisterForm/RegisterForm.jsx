@@ -3,11 +3,14 @@ import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { IoClose } from "react-icons/io5";
 import { toast } from "react-hot-toast"; // Імпорт toast
+import { useNavigate } from "react-router-dom"; // Імпорт useNavigate
 
 import styles from "./RegisterForm.module.css";
 
-const RegisterForm = ({ onClose }) => { // Додано onClose
+const RegisterForm = ({ onClose }) => {
+  // Додано onClose
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Використання useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ const RegisterForm = ({ onClose }) => { // Додано onClose
       .then(() => {
         toast.success("Registration successful!"); // Сповіщення про успішну реєстрацію
         onClose(); // Закриття модального вікна
+        navigate("/chats"); // Перенаправлення на сторінку чатів
       })
       .catch(() => {
         toast.error("Registration failed."); // Сповіщення про невдалу реєстрацію
