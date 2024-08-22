@@ -1,17 +1,19 @@
+// src/components/AppBar/AppBar.jsx
+import React from "react";
 import { SlMagnifier } from "react-icons/sl";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaRegCheckCircle } from "react-icons/fa";
-import styles from "./AppBar.module.css";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
-import UserMenu from "../UserMenu/UserMenu"; // Default import
-import AuthNav from "../AuthNav/AuthNav"; // Default import
+import UserMenu from "../UserMenu/UserMenu";
+import AuthNav from "../AuthNav/AuthNav";
+import styles from "./AppBar.module.css";
 
 export function AppBar() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
-    <header>
+    <aside className={styles.aside}>
       <div className={styles.container}>
         <div className={styles.headWrapper}>
           <ul className={styles.icons}>
@@ -25,7 +27,7 @@ export function AppBar() {
           {isLoggedIn ? <UserMenu /> : <AuthNav />}
         </div>
         <form className={styles.form} action="">
-          <SlMagnifier />
+          <SlMagnifier className={styles.magnifierIcon} />
           <input
             className={styles.input}
             type="text"
@@ -33,8 +35,8 @@ export function AppBar() {
           />
         </form>
       </div>
-    </header>
+    </aside>
   );
 }
 
-export default AppBar; // Add this line to export AppBar as the default export
+export default AppBar;

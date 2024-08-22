@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/auth/operations";
+import { IoClose } from "react-icons/io5";
+
 import styles from "./LoginForm.module.css";
 
 export function LoginForm() {
@@ -28,6 +30,9 @@ export function LoginForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
+      <div className={styles.IoClose}>
+        <IoClose />
+      </div>
       <label className={styles.label}>
         Email
         <input type="email" name="email" />

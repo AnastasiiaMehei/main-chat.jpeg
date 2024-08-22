@@ -10,7 +10,7 @@ export const setAuthHeader = (token) => {
 // Utility to remove JWT
 export const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization =
-    "https://connections-api.goit.global/";
+    "https://nodejs-hw-7-mongodb.onrender.com/";
 };
 // /register
 export const register = createAsyncThunk(

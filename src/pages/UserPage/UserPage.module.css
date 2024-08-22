@@ -1,0 +1,19 @@
+/* src/pages/UserPage/UserPage.module.css */
+.container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.chatList {
+  width: 30%;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.chatEditor {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}

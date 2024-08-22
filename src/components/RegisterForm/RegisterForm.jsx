@@ -1,8 +1,12 @@
+// RegisterForm.jsx
+import React from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
+import { IoClose } from "react-icons/io5";
+
 import styles from "./RegisterForm.module.css";
 
-function RegisterForm() {
+const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -22,6 +26,10 @@ function RegisterForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
+      <div className={styles.IoClose}>
+        <IoClose />
+      </div>
+
       <label className={styles.label}>
         Username
         <input type="text" name="name" />
@@ -37,5 +45,6 @@ function RegisterForm() {
       <button type="submit">Register</button>
     </form>
   );
-}
+};
+
 export default RegisterForm;

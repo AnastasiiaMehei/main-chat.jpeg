@@ -1,12 +1,15 @@
+// RegisterPage.jsx
+import React from "react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
-function RegisterPage() {
+const RegisterPage = () => {
   return (
     <div>
-      <PageTitle>Register your user chat</PageTitle>
+      <PageTitle title="Register your user chat" />
       <RegisterForm />
     </div>
   );
-}
+};
+
 export default RegisterPage;

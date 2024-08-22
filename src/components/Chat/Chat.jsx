@@ -1,14 +1,15 @@
+// src/components/Chat/Chat.jsx
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteChat, updateChat } from "../../redux/chats/operations";
 import { IoPerson } from "react-icons/io5";
-import { FaPhone } from "react-icons/fa6";
 import { FaTrashCan } from "react-icons/fa6";
 import { GrEdit } from "react-icons/gr";
 import { Toaster, toast } from "react-hot-toast";
 import Modal from "../Modal/Modal";
-// import styles from "./Chat.module.css";
-function Chat(id, chat) {
+import css from "./Chat.module.css";
+
+function Chat({ id, chat }) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [editedChat, setEditedChat] = useState(chat);
@@ -85,6 +86,18 @@ function Chat(id, chat) {
           onChange={handleChange}
           placeholder="Surname"
         />
+        <input
+          name="photo"
+          value={editedChat.photo}
+          onChange={handleChange}
+          placeholder="Photo URL"
+        />
+        <input
+          name="lastMessageDate"
+          value={editedChat.lastMessageDate}
+          onChange={handleChange}
+          placeholder="Last Message Date"
+        />
         <button type="submit">Save</button>
       </form>
     );
@@ -95,12 +108,19 @@ function Chat(id, chat) {
       <Toaster />
       <div className={css.container}>
         <div className={css.paragraphDiv}>
-          <p className={css.paragraph}>
-            <IoPerson className={css.icon} /> {editedChat.name}
-          </p>
-          <p className={css.paragraph}>
-            <FaPhone className={css.icon} /> {editedChat.surname}
-          </p>
+          <img
+            src={editedChat.photo}
+            alt={`${editedChat.name} ${editedChat.surname}`}
+            className={css.photo}
+          />
+          <div className={css.textContainer}>
+            <p className={css.paragraph}>
+              <IoPerson className={css.icon} /> {editedChat.name}{" "}
+              {editedChat.surname}
+            </p>
+            <p className={css.lastMessage}>{editedChat.lastMessage}</p>
+          </div>
+          <p className={css.date}>{editedChat.lastMessageDate}</p>
         </div>
         <div className={css.btnDiv}>
           <button className={css.btn} onClick={handleDelete}>
@@ -114,4 +134,5 @@ function Chat(id, chat) {
     </>
   );
 }
+
 export default Chat;

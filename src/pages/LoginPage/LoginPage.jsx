@@ -1,17 +1,19 @@
-// src/pages/LoginPage/LoginPage.jsx
+// LoginPage.jsx
 import React from "react";
-import { LoginForm } from "../../components/LoginForm/LoginForm";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import LoginForm from "../../components/LoginForm/LoginForm";
 import GoogleLoginButton from "../../components/GoogleLoginButton/GoogleLoginButton";
 import FacebookLoginButton from "../../components/FacebookLoginButton/FacebookLoginButton";
 
-export default function LoginPage() {
+const LoginPage = () => {
   return (
     <div>
-      <PageTitle>Please log in</PageTitle>
+      <PageTitle title="Please log in" />
       <LoginForm />
       <GoogleLoginButton />
       <FacebookLoginButton />
     </div>
   );
-}
+};
+
+export default LoginPage;
