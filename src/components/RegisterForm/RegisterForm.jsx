@@ -1,12 +1,12 @@
-// RegisterForm.jsx
 import React from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { IoClose } from "react-icons/io5";
+import { toast } from "react-hot-toast"; // Імпорт toast
 
 import styles from "./RegisterForm.module.css";
 
-const RegisterForm = () => {
+const RegisterForm = ({ onClose }) => { // Додано onClose
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -19,14 +19,22 @@ const RegisterForm = () => {
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        toast.success("Registration successful!"); // Сповіщення про успішну реєстрацію
+        onClose(); // Закриття модального вікна
+      })
+      .catch(() => {
+        toast.error("Registration failed."); // Сповіщення про невдалу реєстрацію
+      });
 
     form.reset();
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
-      <div className={styles.IoClose}>
+      <div className={styles.IoClose} onClick={onClose}>
         <IoClose />
       </div>
 

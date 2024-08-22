@@ -1,10 +1,12 @@
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/auth/operations";
 import { IoClose } from "react-icons/io5";
+import { toast } from "react-hot-toast"; // Імпорт toast
 
 import styles from "./LoginForm.module.css";
 
-export function LoginForm() {
+export function LoginForm({ onClose }) {
+  // Додано onClose
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -19,10 +21,11 @@ export function LoginForm() {
     )
       .unwrap()
       .then(() => {
-        console.log("login success");
+        toast.success("Login successful!"); // Сповіщення про успішний логін
+        onClose(); // Закриття модального вікна
       })
       .catch(() => {
-        console.log("login error");
+        toast.error("Login failed."); // Сповіщення про невдалий логін
       });
 
     form.reset();
@@ -30,7 +33,7 @@ export function LoginForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
-      <div className={styles.IoClose}>
+      <div className={styles.IoClose} onClick={onClose}>
         <IoClose />
       </div>
       <label className={styles.label}>
@@ -46,4 +49,4 @@ export function LoginForm() {
   );
 }
 
-export default LoginForm; // Add this line to export LoginForm as the default export
+export default LoginForm;

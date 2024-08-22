@@ -1,4 +1,3 @@
-// AuthNav.jsx
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Modal from "react-modal";
@@ -34,7 +33,8 @@ function AuthNav() {
         onRequestClose={() => setIsRegisterOpen(false)}
         contentLabel="Register Modal"
       >
-        <RegisterPage />
+        <RegisterPage onClose={() => setIsRegisterOpen(false)} />{" "}
+        {/* Передано onClose */}
       </Modal>
 
       <Modal
@@ -42,7 +42,8 @@ function AuthNav() {
         onRequestClose={() => setIsLoginOpen(false)}
         contentLabel="Login Modal"
       >
-        <LoginPage />
+        <LoginPage onClose={() => setIsLoginOpen(false)} />{" "}
+        {/* Передано onClose */}
       </Modal>
     </div>
   );
