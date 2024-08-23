@@ -1,8 +1,6 @@
-// src/components/UserChat/UserChat.jsx
 import React, { useState, useEffect } from "react";
 import { IoMdSend } from "react-icons/io";
 import axios from "axios";
-import MessageTime from "../MessageTime/MessageTime";
 import css from "./UserChat.module.css";
 
 const UserChat = ({ isOpen, onRequestClose, selectedChat, user }) => {
@@ -47,20 +45,21 @@ const UserChat = ({ isOpen, onRequestClose, selectedChat, user }) => {
   return (
     <div className={`${css.userChat} ${isOpen ? css.open : css.closed}`}>
       <div className={css.userChatHeader}>
-        <img
-          src={user.photo}
-          alt={`${user.firstName} ${user.lastName}`}
-          className={css.userPhoto}
-        />
-        <div className={css.userInfo}>
-          <p>{user.firstName}</p>
-          <p>{user.lastName}</p>
-        </div>
-      </div>
-      <div className={css.userChatBody}>
-        {messages.map((message, index) => (
-          <MessageTime key={index} message={message} />
-        ))}
+        {user ? (
+          <>
+            <img
+              src={user.photo}
+              alt={`${user.firstName} ${user.lastName}`}
+              className={css.userPhoto}
+            />
+            <div className={css.userInfo}>
+              <p>{user.firstName}</p>
+              <p>{user.lastName}</p>
+            </div>
+          </>
+        ) : (
+          <p>No user selected</p>
+        )}
       </div>
       <div className={css.userChatFooter}>
         <input

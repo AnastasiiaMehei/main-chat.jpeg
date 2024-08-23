@@ -3,10 +3,22 @@
   display: flex;
   height: 100vh;
   padding: 20px;
+  overflow-x: hidden;
 }
-
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .content {
   display: flex;
   flex: 1;
   overflow: hidden;
+}
+.userChat {
+  width: 680px;
 }

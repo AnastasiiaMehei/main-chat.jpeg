@@ -1,15 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Chat from "../Chat/Chat";
-import { selectFilteredChats } from "../../redux/filter/filter";
+import { selectChats } from "../../redux/chats/selectors";
 import css from "./ChatList.module.css";
 
-function ChatList({ onSelectChat, isAuthenticated }) {
-  const chats = useSelector(selectFilteredChats);
-
-  if (!isAuthenticated) {
-    return <p className={css.message}>Please log in to see the chats.</p>;
-  }
+function ChatList({ onSelectChat }) {
+  const chats = useSelector(selectChats);
 
   return (
     <div className={css.chatList}>

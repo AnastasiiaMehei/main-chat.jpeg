@@ -34,33 +34,42 @@ function UserPage() {
     setIsCreatingChat(true);
   };
 
+  const handleChatCreated = () => {
+    setIsCreatingChat(false);
+    dispatch(fetchChats()); // Refresh the chat list after creating a new chat
+  };
+
   return (
     <Layout>
       <div className={css.container}>
         <div className={css.chatList}>
           {isLoading && <Loader />}
-          {isLoggedIn && chats.length > 0 ? (
-            <ChatList
-              onSelectChat={handleSelectChat}
-              isAuthenticated={isLoggedIn}
-            />
+          {chats.length > 0 ? (
+            <ChatList onSelectChat={handleSelectChat} />
           ) : (
             <div>
               <p>No chats available. Create a new chat.</p>
-              <button onClick={handleCreateChat}>Create Chat</button>
+              <button onClick={handleCreateChat}>Start new chat</button>
             </div>
           )}
         </div>
         <div className={css.chatEditor}>
-          {isCreatingChat ? (
-            <ChatEditor />
+          {isLoggedIn ? (
+            <>
+              {isCreatingChat && (
+                <ChatEditor onChatCreated={handleChatCreated} />
+              )}
+              {selectedChat && (
+                <UserChat
+                  isOpen={isChatOpen}
+                  onRequestClose={() => setIsChatOpen(false)}
+                  selectedChat={selectedChat}
+                  user={selectedChat}
+                />
+              )}
+            </>
           ) : (
-            <UserChat
-              isOpen={isChatOpen}
-              onRequestClose={() => setIsChatOpen(false)}
-              selectedChat={selectedChat}
-              user={selectedChat}
-            />
+            <p>Please log in to view and send messages.</p>
           )}
         </div>
       </div>

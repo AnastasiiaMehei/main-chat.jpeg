@@ -6,19 +6,23 @@ import { Toaster, toast } from "react-hot-toast";
 import css from "./ChatEditor.module.css";
 import { addChat } from "../../redux/chats/operations";
 
-export default function ChatEditor() {
+export default function ChatEditor({ onChatCreated }) {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
 
   const handleSubmit = (values, actions) => {
-    const { name } = values;
+    const { name, surname } = values;
+    const photo = `https://avatars.dicebear.com/api/initials/${name}-${surname}.svg`; // Генерация аватара
     console.log("Submitting chat:", values);
-    if (name) {
+    if (name && surname) {
       if (token) {
-        dispatch(addChat({ name }))
+        dispatch(addChat({ name, surname, photo }))
           .then(() => {
             toast.success("Chat added successfully");
             actions.resetForm();
+            if (onChatCreated) {
+              onChatCreated();
+            }
           })
           .catch(() => {
             toast.error("Failed to add chat");
@@ -34,6 +38,10 @@ export default function ChatEditor() {
       .min(3, "Too Short")
       .max(50, "Too Long")
       .required("Required"),
+    surname: Yup.string()
+      .min(3, "Too Short")
+      .max(50, "Too Long")
+      .required("Required"),
   });
 
   return (
@@ -45,6 +53,7 @@ export default function ChatEditor() {
             <Formik
               initialValues={{
                 name: "",
+                surname: "",
               }}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
@@ -61,6 +70,18 @@ export default function ChatEditor() {
                     <ErrorMessage
                       className={css.span}
                       name="name"
+                      component="span"
+                    />
+                  </div>
+                  <div className={css.inputbox}>
+                    <Field
+                      className={css.field}
+                      name="surname"
+                      placeholder="Surname"
+                    />
+                    <ErrorMessage
+                      className={css.span}
+                      name="surname"
                       component="span"
                     />
                   </div>

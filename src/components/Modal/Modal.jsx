@@ -2,7 +2,7 @@
 import css from "./Modal.module.css"; // Adjust the path as necessary
 
 function Modal({ isOpen, onClose, children }) {
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
 
   return (
     <div className={css.modalBackdrop} onClick={onClose}>

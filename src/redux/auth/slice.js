@@ -8,9 +8,10 @@ const authSlice = createSlice({
       name: null,
       email: null,
     },
-    token: null,
+    token: localStorage.getItem("token") || null,
     isLoggedIn: false,
     isLoading: false,
+    isRefreshing: false,
   },
   extraReducers: (builder) =>
     builder

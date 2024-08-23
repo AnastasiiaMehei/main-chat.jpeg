@@ -1,4 +1,3 @@
-// src/components/AppBar/AppBar.jsx
 import React from "react";
 import { SlMagnifier } from "react-icons/sl";
 import { IoPersonSharp } from "react-icons/io5";
