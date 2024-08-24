@@ -18,11 +18,13 @@ export const register = createAsyncThunk(
   "auth/register",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("auth/register", credentials);
-      // After successful registration, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      // Save token to localStorage
-      localStorage.setItem("token", res.data.token);
+      const res = await axios.post("/auth/register", credentials);
+      if (res.data.data.accessToken) {
+        setAuthHeader(res.data.data.accessToken);
+        localStorage.setItem("token", res.data.data.accessToken);
+      } else {
+        throw new Error("Token not found in response");
+      }
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -35,11 +37,13 @@ export const logIn = createAsyncThunk(
   "auth/login",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("auth/login", credentials);
-      // After successful login, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      // Save token to localStorage
-      localStorage.setItem("token", res.data.token);
+      const res = await axios.post("/auth/login", credentials);
+      if (res.data.data.accessToken) {
+        setAuthHeader(res.data.data.accessToken);
+        localStorage.setItem("token", res.data.data.accessToken);
+      } else {
+        throw new Error("Token not found in response");
+      }
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -50,10 +54,8 @@ export const logIn = createAsyncThunk(
 // /logout
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await axios.post("auth/logout");
-    // After a successful logout, remove the token from the HTTP header
+    await axios.post("/auth/logout");
     clearAuthHeader();
-    // Remove token from localStorage
     localStorage.removeItem("token");
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -64,20 +66,24 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
-    // Reading the token from localStorage
     const token = localStorage.getItem("token");
 
     if (token === null) {
-      // If there is no token, exit without performing any request
       return thunkAPI.rejectWithValue("Unable to fetch user");
     }
 
     try {
-      // If there is a token, add it to the HTTP header and perform the request
       setAuthHeader(token);
-      const res = await axios.post("auth/refresh");
+      const res = await axios.post("/auth/refresh");
+      if (res.data.data.accessToken) {
+        setAuthHeader(res.data.data.accessToken);
+        localStorage.setItem("token", res.data.data.accessToken);
+      } else {
+        throw new Error("Token not found in response");
+      }
       return res.data;
     } catch (error) {
+      console.error("Refresh error:", error); // Отладочное сообщение
       return thunkAPI.rejectWithValue(error.message);
     }
   }
