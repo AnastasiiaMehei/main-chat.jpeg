@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Chat from "../Chat/Chat";
-import { selectChats } from "../../redux/chats/selectors";
+import { selectChats } from "../../redux/chats/selectors.js";
 import css from "./ChatList.module.css";
 
 function ChatList({ onSelectChat }) {
