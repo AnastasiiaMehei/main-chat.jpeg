@@ -11,8 +11,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import chatsReducer from "./chats/slice";
-import authReducer from "./auth/slice";
+import chatsReducer from "./chats/slice.js";
+import authReducer from "./auth/slice.js";
 
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {

@@ -3,9 +3,13 @@ import { selectUser } from "../../redux/auth/selectors";
 import { logOut } from "../../redux/auth/operations";
 import css from "./UserMenu.module.css";
 
-function UserMenu() { // Default export
+function UserMenu() {
   const dispatch = useDispatch();
-  const { user } = useSelector(selectUser);
+  const user = useSelector(selectUser);
+
+  if (!user) {
+    return null; // or a fallback UI
+  }
 
   return (
     <div className={css.wrapper}>
@@ -17,4 +21,4 @@ function UserMenu() { // Default export
   );
 }
 
-export default UserMenu; // Default export
+export default UserMenu;
