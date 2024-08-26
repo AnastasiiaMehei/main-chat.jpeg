@@ -18,10 +18,12 @@ const chatsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.items = action.payload;
+        console.log("Chats state updated:", state.items); // Add this line
       })
       .addCase(fetchChats.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        console.error("Error updating chats state:", action.payload); // Add this line
       })
       .addCase(addChat.pending, (state) => {
         state.isLoading = true;

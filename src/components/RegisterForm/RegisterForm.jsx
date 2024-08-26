@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom"; // Імпорт useNavigate
 import styles from "./RegisterForm.module.css";
 
 const RegisterForm = ({ onClose }) => {
-  // Додано onClose
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Використання useNavigate
 

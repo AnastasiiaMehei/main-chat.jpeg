@@ -7,7 +7,6 @@ import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute"; // D
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import Loader from "./components/Loader/Loader";
 import Layout from "./components/Layout/Layout"; // Corrected import path
-import { Toaster } from "react-hot-toast"; // Імпорт Toaster
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
@@ -59,7 +58,6 @@ export default function App() {
           />
         </Routes>
       </Suspense>
-      <Toaster /> {/* Додано Toaster */}
     </Layout>
   );
 }

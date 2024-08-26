@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store.js";
 import Loader from "./components/Loader/Loader.jsx";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <BrowserRouter>
           <HelmetProvider>
             <ErrorBoundary>
+              <Toaster />
               <App />
             </ErrorBoundary>
           </HelmetProvider>

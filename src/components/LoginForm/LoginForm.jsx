@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom"; // Імпорт useNavigate
 import styles from "./LoginForm.module.css";
 
 export function LoginForm({ onClose }) {
-  // Додано onClose
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Використання useNavigate
 
